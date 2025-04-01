@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -141,10 +142,15 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1)
 }
 
-# Customizing Djoser Serializers
 DJOSER = {
     'SERIALIZERS': {
-        # 'user_create': 'core.serializers.UserCreateSerializer',
-        # 'current_user': 'core.serializers.UserSerializer',
+        'user_create': 'user.serializers.UserCreateSerializer',
+        'user': 'user.serializers.UserSerializer',
+        'current_user': 'user.serializers.UserSerializer',
     },
 }
+
+# Base url to serve media files
+MEDIA_URL = '/media/'
+# Path where media is stored
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
