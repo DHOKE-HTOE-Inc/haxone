@@ -42,11 +42,13 @@ INSTALLED_APPS = [
     
     'rest_framework',
     'djoser',
+    "corsheaders",
     
     'user',
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -154,3 +156,5 @@ DJOSER = {
 MEDIA_URL = '/media/'
 # Path where media is stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+CORS_ALLOW_ALL_ORIGINS = True
