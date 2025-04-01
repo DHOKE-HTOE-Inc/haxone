@@ -1,0 +1,35 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env/
+
+# Django stuff
+*.log
+db.sqlite3
+media/
+staticfiles/
+
+# Migrations (optional, if you regenerate them often)
+**/migrations/*.pyc
+**/migrations/*.pyo
+**/migrations/__pycache__/
+!**/migrations/__init__.py
+
+# Secrets and environment files
+.env
+*.env
+config/settings_local.py
+
+# IDE / Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS-specific files
+.DS_Store
+Thumbs.db
