@@ -42,11 +42,13 @@ INSTALLED_APPS = [
     
     'rest_framework',
     'djoser',
+    "corsheaders",
     
     'user',
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -158,3 +160,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Ensure static files are properly configured
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+CORS_ALLOW_ALL_ORIGINS = True
