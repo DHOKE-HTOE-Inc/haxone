@@ -5,6 +5,14 @@
   --color-secondary: #fffcf7;
   --color-accent: #4cc9f0;
   --color-accent-hover: #26a6ce;
+  --color-muted-gray: #40454a;
+
+  --default-font-family: "Poppins", sans-serif;
+}
+
+/* this is to hide scrollbar  */
+body::-webkit-scrollbar {
+  display: none;
 }
 
 /* this is navlink active  */
