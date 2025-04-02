@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #212529;
+  --color-secondary: #fffcf7;
+  --color-accent: #4cc9f0;
+  --color-accent-hover: #26a6ce;
+}
+
+/* this is navlink active  */
+.active {
+  border-bottom-width: 2px;
+  border-color: #4cc9f0;
+}
