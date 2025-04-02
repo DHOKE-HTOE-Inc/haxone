@@ -1,5 +1,6 @@
 import React from "react";
 import { SquareChevronDown } from "lucide-react";
+import Ellipse from "../../public/ellipse";
 
 const Hero = () => {
   return (
@@ -18,7 +19,7 @@ const Hero = () => {
           </div>
           {/* description */}
           <div className="text-xl text-muted-gray my-12 w-2/3">
-            Apply to top Hackathons in Myanmar, join individual or wih your
+            Apply to top Hackathons in Myanmar, join individual or with your
             team, and showcase your skills.
           </div>
           {/* button  */}
@@ -33,7 +34,22 @@ const Hero = () => {
         </div>
 
         {/* Right section - Image */}
-        <div className="w-1/2 flex justify-center items-center">
+        <div className="w-1/2  flex justify-center items-center relative">
+          <Ellipse
+            width={66}
+            height={66}
+            className="absolute -top-20 left-30"
+          />
+          <Ellipse
+            width={70}
+            height={70}
+            className="absolute -top-10 right-20"
+          />
+          <Ellipse
+            width={66}
+            height={66}
+            className="absolute top-80 right-35"
+          />
           <img src="/heroimage.png" alt="heroimage" />
         </div>
       </div>
