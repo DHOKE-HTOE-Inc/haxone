@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@theme {
+:root {
   --color-primary: #212529;
   --color-secondary: #fffcf7;
   --color-accent: #4cc9f0;
@@ -8,6 +8,12 @@
   --color-muted-gray: #40454a;
 
   --default-font-family: "Poppins", sans-serif;
+
+  /* Toast colors */
+  --toast-success-bg: rgba(0, 247, 103, 0.15);
+  --toast-success-text: #00f767;
+  --toast-error-bg: rgba(249, 65, 68, 0.15);
+  --toast-error-text: #f94144;
 }
 
 /* this is to hide scrollbar  */
