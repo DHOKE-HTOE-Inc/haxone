@@ -1,6 +1,7 @@
 import React from "react";
 import { SquareChevronDown } from "lucide-react";
-import Ellipse from "../../public/ellipse";
+import Ellipse from "../assests/Ellipse";
+import Ellipse2 from "../assests/Ellipse2";
 
 const Hero = () => {
   return (
@@ -40,7 +41,7 @@ const Hero = () => {
             height={66}
             className="absolute -top-20 left-30"
           />
-          <Ellipse
+          <Ellipse2
             width={70}
             height={70}
             className="absolute -top-10 right-20"
