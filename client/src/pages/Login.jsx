@@ -1,10 +1,35 @@
+import { useState } from "react";
 import { User, Lock } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { AuthForm, FormInput } from "../components/Form";
-import { Link } from "react-router-dom";
+import { loginUser } from "../store/slices/authSlice";
+import { showToast } from "../utils/toast";
 
 export default function Login() {
-  const handleSubmit = (e) => {
+  const [formData, setFormData] = useState({
+    username: "",
+    password: "",
+  });
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      await dispatch(loginUser(formData)).unwrap();
+      showToast.success("Logged in Successfully");
+      navigate("/");
+    } catch (err) {
+      showToast.error(err);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -18,7 +43,7 @@ export default function Login() {
           Haven't registered yet?
           <Link
             to="/register"
-            className="text-black font-bold ml-2 cursor-pointer"
+            className="text-black font-semibold ml-2 cursor-pointer"
           >
             Register Here
           </Link>
@@ -29,14 +54,20 @@ export default function Login() {
         icon={User}
         placeholder="username"
         name="username"
+        value={formData.username}
+        onChange={handleChange}
         autoComplete="username"
+        required
       />
       <FormInput
         icon={Lock}
         type="password"
         placeholder="password"
         name="password"
+        value={formData.password}
+        onChange={handleChange}
         autoComplete="current-password"
+        required
       />
       <div className="text-center py-1">
         <Link

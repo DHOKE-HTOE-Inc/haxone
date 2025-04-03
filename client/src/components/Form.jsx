@@ -18,6 +18,8 @@ export function FormInput({ icon: Icon, type = "text", ...props }) {
           type="button"
           onClick={() => setShowPassword(!showPassword)}
           className="absolute right-5 top-1/2 -translate-y-1/2 cursor-pointer outline-none"
+          tabIndex={-1}
+          aria-label={showPassword ? "Hide password" : "Show password"}
         >
           {showPassword ? (
             <Eye size={24} strokeWidth={1.5} />
