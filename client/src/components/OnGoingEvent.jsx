@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 
 const OnGoingEvent = () => {
   return (
-    <section id="ongoing-events" className="container mx-auto w-full my-8">
+    <section id="ongoing-events" className="container mx-auto w-full my-20">
       <div className="flex justify-between items-center mb-8">
         <div className="text-4xl font-semibold">On-Going Events</div>
         <Link className="flex gap-4 items-center">
