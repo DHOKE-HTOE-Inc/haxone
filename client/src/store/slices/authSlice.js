@@ -25,7 +25,6 @@ const removeTokens = () => {
   localStorage.removeItem(TOKEN_KEY);
 };
 
-// Initial state
 const tokens = getTokens();
 const initialState = {
   user: null,
@@ -36,7 +35,6 @@ const initialState = {
   error: null,
 };
 
-// Async thunks
 export const registerUser = createAsyncThunk(
   "auth/register",
   async (userData, { rejectWithValue }) => {
@@ -57,7 +55,6 @@ export const loginUser = createAsyncThunk(
   "auth/login",
   async ({ username, password }, { rejectWithValue }) => {
     try {
-      // Get tokens
       const { data: tokens } = await axiosInstance.post("/auth/jwt/create/", {
         username,
         password,
@@ -66,7 +63,6 @@ export const loginUser = createAsyncThunk(
       const { access: accessToken, refresh: refreshToken } = tokens;
       setTokens(accessToken, refreshToken);
 
-      // Directly set the token for the next request
       const userResponse = await axiosInstance.get("/auth/users/me/", {
         headers: {
           Authorization: `JWT ${accessToken}`,

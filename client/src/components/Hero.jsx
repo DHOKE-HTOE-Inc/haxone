@@ -28,7 +28,7 @@ const Hero = () => {
             <button className="text-xl px-12 py-4 border-2 border-primary rounded-md cursor-pointer hover:bg-accent-hover hover:text-secondary hover:border-accent-hover transition-all duration-200 ease-in-out">
               How it works
             </button>
-            <button className="text-xl px-12 py-4 text-secondary bg-accent hover:bg-accent-hover rounded-md cursor-pointer transition-colors duration-200 ease-in-out">
+            <button className="text-xl px-12 py-4 text-[var(--color-secondary)] bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] rounded-md cursor-pointer transition-colors duration-200 ease-in-out">
               Browse Hackathons
             </button>
           </div>

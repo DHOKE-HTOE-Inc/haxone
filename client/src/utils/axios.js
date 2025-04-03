@@ -2,7 +2,6 @@ import axios from "axios";
 import config from "../config";
 import { store } from "../store/store";
 
-// Create axios instance
 const axiosInstance = axios.create({
   baseURL: config.API_URL,
   timeout: 10000,
@@ -24,7 +23,6 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-// Response interceptor
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {

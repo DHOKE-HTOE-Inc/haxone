@@ -25,7 +25,7 @@ const TopNavBar = () => {
               <button className="mx-2 px-4 py-2 font-semibold text-lg cursor-pointer">
                 Register
               </button>
-              <button className="mx-2 px-4 py-2 font-semibold text-lg text-secondary bg-accent hover:bg-accent-hover rounded-md duration-200 transition-colors cursor-pointer">
+              <button className="mx-2 px-4 py-2 font-semibold text-lg text-[var(--color-secondary)] bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] rounded-md duration-200 transition-colors cursor-pointer">
                 Login
               </button>
             </div>
