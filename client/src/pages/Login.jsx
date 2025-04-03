@@ -71,7 +71,6 @@ export default function Login() {
       />
       <div className="text-center py-1">
         <Link
-          to="/forgot-password"
           className="text-lg font-[500] text-[var(--color-primary)] opacity-60 hover:text-gray-600 outline-none cursor-pointer"
         >
           Forgot password?

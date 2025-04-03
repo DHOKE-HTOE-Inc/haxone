@@ -27,7 +27,7 @@ const Event = () => {
               <MapPin /> <div>Bagon, Myanmar</div>
             </div>
           </div>
-          <button className="px-8 h-12 text-[var(--color-secondary)] bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] rounded-md cursor-pointer transition-colors duration-200 ease-in-out">
+          <button className="px-8 h-12 text-secondary bg-accent hover:bg-accent-hover rounded-md cursor-pointer transition-colors duration-200 ease-in-out">
             Explore
           </button>
         </div>
