@@ -2,7 +2,10 @@ from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
 
+from uuid import uuid4
+
 class Event(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     title = models.CharField(max_length=255)
     description = models.TextField()
     organizer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="events")
@@ -26,7 +29,7 @@ class Event(models.Model):
         if (self.application_deadline <= self.start_date) or (self.application_deadline >= self.end_date) or (self.application_deadline == self.project_submission_deadline):
             raise ValidationError("Application deadline must be before the event ends. and must not be the same as project submission deadline.")
         
-        if (self.project_submission_deadline <= self.end_date) or (self.project_submission_deadline >= self.end_date) or (self.application_deadline == self.project_submission_deadline):
+        if (self.project_submission_deadline <= self.start_date) or (self.project_submission_deadline >= self.end_date):
             raise ValidationError("Project submission deadline must fall within the event duration.")
     
     def save(self, *args, **kwargs):
