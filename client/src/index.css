@@ -1,1 +1,31 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #212529;
+  --color-secondary: #fffcf7;
+  --color-accent: #4cc9f0;
+  --color-accent-hover: #26a6ce;
+  --color-muted-gray: #40454a;
+
+  --default-font-family: "Poppins", sans-serif;
+
+  /* Toast colors */
+  --toast-success-bg: rgba(0, 247, 103, 0.15);
+  --toast-success-text: #00f767;
+  --toast-error-bg: rgba(249, 65, 68, 0.15);
+  --toast-error-text: #f94144;
+}
+
+/* this is to hide scrollbar  */
+body::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* this is navlink active  */
+.active {
+  border-bottom-width: 2px;
+  border-color: #4cc9f0;
+}
