@@ -11,6 +11,8 @@ import Dashboard from "./pages/Dashboard";
 import ManageEvents from "./pages/ManageEvents";
 import DashboardLayout from "./layouts/DashboardLayout";
 import EventInsights from "./pages/EventInsights";
+import Home from "./pages/Home";
+import UserProfile from "./pages/UserProfile";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +55,10 @@ const router = createBrowserRouter([
         ],
       },
     ],
+  },
+  {
+    path: "/:username",
+    element: <UserProfile />,
   },
 ]);
 
