@@ -3,7 +3,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator
 from uuid import uuid4
-
+from django.utils import timezone
 
 class Event(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
@@ -39,3 +39,38 @@ class Event(models.Model):
         
     def __str__(self) -> str:
         return f"{self.title} - {self.start_date} to {self.end_date}"
+    
+class Application(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('accepted', 'Accepted'),
+        ('rejected', 'Rejected')
+    ]
+    
+    id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="applications")
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="applications")
+    showcase_url = models.URLField(max_length=255)
+    status = models.CharField(max_length=255, choices=STATUS_CHOICES, default='pending')
+    applied_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        unique_together = ['user', 'event']
+        
+    def clean(self):
+        super().clean()
+        
+        if self.event.application_deadline < timezone.now().date():
+            raise ValidationError("Application deadline has passed for this event.")
+            
+        if self.status == 'accepted':
+            accepted_count = Application.objects.filter(event=self.event, status='accepted').count()
+            if accepted_count >= self.event.max_participants:
+                raise ValidationError("Event has reached maximum number of participants.")
+                
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.event.title} ({self.status})"
