@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Filter, SortDesc, Search, Plus } from "lucide-react";
 import EventCard from "../components/organizer/manage/EventCard";
 import AddEventModal from "../components/organizer/manage/AddEventModal";
@@ -31,26 +31,31 @@ const ManageEvents = () => {
       <div className="grid grid-cols-3 gap-6">
         {/* Event Cards */}
         <EventCard
+          id="1"
           title="Tech Innovators Summit 2025"
           image="/eventdefault.png"
           date="27 Mar, 2025"
         />
         <EventCard
+          id="2"
           title="Tech Innovators Summit 2025"
           image="/eventdefault.png"
           date="27 Mar, 2025"
         />
         <EventCard
+          id="3"
           title="Tech Innovators Summit 2025"
           image="/eventdefault.png"
           date="27 Mar, 2025"
         />
         <EventCard
+          id="4"
           title="Tech Innovators Summit 2025"
           image="/eventdefault.png"
           date="27 Mar, 2025"
         />
         <EventCard
+          id="5"
           title="Tech Innovators Summit 2025"
           image="/eventdefault.png"
           date="27 Mar, 2025"

@@ -10,6 +10,7 @@ import Main from "./layouts/Main";
 import Dashboard from "./pages/Dashboard";
 import ManageEvents from "./pages/ManageEvents";
 import DashboardLayout from "./layouts/DashboardLayout";
+import EventInsights from "./pages/EventInsights";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,16 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <ManageEvents />,
+      },
+    ],
+  },
+  {
+    path: "/manage-events/:eventId",
+    element: <DashboardLayout />,
+    children: [
+      {
+        index: true,
+        element: <EventInsights />,
       },
     ],
   },

@@ -1,9 +1,14 @@
-import React from "react";
 import { CalendarDays } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-const EventCard = ({ title, image, date }) => {
+const EventCard = ({ title, image, date, id }) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="w-80 h-60 relative rounded-lg overflow-hidden group cursor-pointer">
+    <div
+      onClick={() => navigate(`/manage-events/${id}`)}
+      className="w-80 h-60 relative rounded-lg overflow-hidden group cursor-pointer"
+    >
       {/* Background Image */}
       <img src={image} alt={title} className="w-full h-full object-cover" />
 

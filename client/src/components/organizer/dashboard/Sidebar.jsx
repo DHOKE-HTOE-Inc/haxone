@@ -1,4 +1,3 @@
-import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { LayoutDashboard, Network } from "lucide-react";
 
@@ -30,12 +29,12 @@ const Sidebar = () => {
             key={path}
             to={path}
             className={({ isActive }) =>
-              `flex items-center gap-2 text-xl font-medium p-3 rounded-md transition-all duration-200 ease-in-out ${
+              `flex items-center gap-3 text-lg font-medium p-3 rounded-md transition-all duration-200 ease-in-out ${
                 isActive ? "bg-accent text-secondary" : "text-primary"
               }`
             }
           >
-            <Icon size={24} strokeWidth={1} />
+            <Icon size={22} strokeWidth={1} />
             {label}
           </NavLink>
         ))}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { X } from "lucide-react";
 
 const AddEventModal = ({ isOpen, onClose }) => {
@@ -20,7 +20,7 @@ const AddEventModal = ({ isOpen, onClose }) => {
         </div>
 
         {/* Event Form */}
-        <form className="grid grid-cols-2 gap-32">
+        <form className="grid grid-cols-2 gap-32 mx-auto max-w-[1000px]">
           {/* Left Column */}
           <div className="space-y-6">
             {/* Event Name */}
@@ -43,12 +43,12 @@ const AddEventModal = ({ isOpen, onClose }) => {
                 <textarea
                   className="w-full h-12 px-4 py-2 border border-gray-300 rounded-xs focus:outline-none focus:ring-2 focus:ring-accent resize-none pr-12"
                   rows={1}
-                  maxLength={50}
+                  maxLength={100}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                 />
                 <div className="absolute bottom-2 right-2 text-sm text-gray-500">
-                  {description.length}/50
+                  {description.length}/100
                 </div>
               </div>
             </div>
