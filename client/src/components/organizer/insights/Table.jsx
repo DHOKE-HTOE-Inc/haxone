@@ -16,7 +16,8 @@ const Table = ({ columns, data, selectedItems, onSelectAll, onSelectItem }) => {
             {columns.map((column) => (
               <th
                 key={column.key}
-                className={`pb-4 font-normal w-[${column.width}] text-muted-gray`}
+                className="pb-4 font-normal text-muted-gray"
+                style={{ width: column.width }}
               >
                 {column.header}
               </th>
@@ -39,7 +40,7 @@ const Table = ({ columns, data, selectedItems, onSelectAll, onSelectItem }) => {
                 />
               </td>
               {columns.map((column) => (
-                <td key={column.key}>
+                <td key={column.key} style={{ width: column.width }}>
                   {column.render ? column.render(item) : item[column.key]}
                 </td>
               ))}
