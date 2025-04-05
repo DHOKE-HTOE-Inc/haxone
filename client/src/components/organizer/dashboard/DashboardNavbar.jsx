@@ -1,6 +1,6 @@
 import React from "react";
 import { Bell } from "lucide-react";
-import Ellipse6 from "../../assests/Ellipse6";
+import Ellipse6 from "../../../assests/Ellipse6";
 
 const DashboardNavbar = () => {
   return (
