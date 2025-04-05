@@ -9,6 +9,12 @@
   --color-error: #f94144;
 
   --default-font-family: "Poppins", sans-serif;
+
+  /* Toast colors */
+  --toast-success-bg: rgba(0, 247, 103, 0.15);
+  --toast-success-text: #00f767;
+  --toast-error-bg: rgba(249, 65, 68, 0.15);
+  --toast-error-text: #f94144;
 }
 
 /* this is to hide scrollbar  */
