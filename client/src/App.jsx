@@ -7,6 +7,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Main from "./layouts/Main";
+import Dashboard from "./pages/Dashboard";
+import ManageEvents from "./pages/ManageEvents";
+import DashboardLayout from "./layouts/DashboardLayout";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +27,26 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardLayout />,
+    children: [
+      {
+        index: true,
+        element: <Dashboard />,
+      },
+    ],
+  },
+  {
+    path: "/manage-events",
+    element: <DashboardLayout />,
+    children: [
+      {
+        index: true,
+        element: <ManageEvents />,
       },
     ],
   },
