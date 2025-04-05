@@ -2,6 +2,7 @@ from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.filters import SearchFilter, OrderingFilter
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
 from .models import Event, Application
@@ -11,6 +12,9 @@ from .permissions import IsEventOwner
 class EventViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ["title"]
+    ordering_fields = ["start_date"]
     
     def get_permissions(self):
         if self.action in ["fetch_events_to_apply", "retrieve"]:
@@ -29,8 +33,9 @@ class EventViewSet(viewsets.ModelViewSet):
         
     @action(detail=False, methods=["get"], url_path="events-to-apply")
     def fetch_events_to_apply(self, request):
-        events = Event.objects.filter(application_deadline__gte=timezone.now())
-        serializer = self.get_serializer(events, many=True)
+        queryset = Event.objects.filter(application_deadline__gte=timezone.now())
+        queryset = self.filter_queryset(queryset)
+        serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
     
     @action(detail=True, methods=["post"], url_path="apply")
@@ -57,7 +62,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     
     def get_permissions(self):
-        if self.action in ["list", "update", "partial_update"]:
+        if self.action inhttps://github.com/DHOKE-HTOE-Inc/haxone/pulls ["list", "update", "partial_update"]:
             return [IsAuthenticated(), IsEventOwner()]
         
         return super().get_permissions() 
