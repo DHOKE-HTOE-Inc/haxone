@@ -13,7 +13,7 @@ const InfoCard = () => {
         className="mx-auto rounded-full w-32"
       />
       <div className="my-2 font-semibold text-xl">@hurri69</div>
-      <div className="text-muted-gray">hurricane969@gmail.com</div>
+      <div className="text-neutral-500">hurricane969@gmail.com</div>
       <div className="">
         <span>Miscrosoft CEO</span> | <span>Yangon, Myanmar</span>
       </div>
