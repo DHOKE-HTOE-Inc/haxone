@@ -32,32 +32,25 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard",
+    path: "/organizer",
     element: <DashboardLayout />,
     children: [
       {
         index: true,
         element: <Dashboard />,
       },
-    ],
-  },
-  {
-    path: "/manage-events",
-    element: <DashboardLayout />,
-    children: [
       {
-        index: true,
-        element: <ManageEvents />,
-      },
-    ],
-  },
-  {
-    path: "/manage-events/:eventId",
-    element: <DashboardLayout />,
-    children: [
-      {
-        index: true,
-        element: <EventInsights />,
+        path: "events",
+        children: [
+          {
+            index: true,
+            element: <ManageEvents />,
+          },
+          {
+            path: ":eventId",
+            element: <EventInsights />,
+          },
+        ],
       },
     ],
   },

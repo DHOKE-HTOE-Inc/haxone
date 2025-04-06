@@ -6,7 +6,7 @@ const EventCard = ({ title, image, date, id }) => {
 
   return (
     <div
-      onClick={() => navigate(`/manage-events/${id}`)}
+      onClick={() => navigate(`/organizer/events/${id}`)}
       className="w-80 h-60 relative rounded-lg overflow-hidden group cursor-pointer"
     >
       {/* Background Image */}

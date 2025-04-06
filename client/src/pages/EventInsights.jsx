@@ -47,7 +47,7 @@ const EventInsights = () => {
     <div className="flex flex-col h-[calc(100vh-130px)]">
       {/* Header */}
       <div className="flex items-center gap-3 mb-4 pt-3">
-        <Link to="/manage-events">
+        <Link to="/organizer/events">
           <ArrowLeft size={24} />
         </Link>
         <h1 className="text-2xl font-medium">Event Insights</h1>
@@ -59,7 +59,7 @@ const EventInsights = () => {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`px-1 py-2 capitalize ${
+            className={`px-1 py-2 capitalize cursor-pointer ${
               activeTab === tab
                 ? "border-b-2 border-primary text-primary"
                 : "text-gray-500 hover:text-primary"

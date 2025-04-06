@@ -3,12 +3,12 @@ import { LayoutDashboard, Network } from "lucide-react";
 
 const navItems = [
   {
-    path: "/dashboard",
+    path: "/organizer",
     label: "Dashboard",
     icon: LayoutDashboard,
   },
   {
-    path: "/manage-events",
+    path: "/organizer/events",
     label: "Manage Events",
     icon: Network,
   },
@@ -28,6 +28,7 @@ const Sidebar = () => {
           <NavLink
             key={path}
             to={path}
+            end={path === "/organizer"}
             className={({ isActive }) =>
               `flex items-center gap-3 text-lg font-medium p-3 rounded-md transition-all duration-200 ease-in-out ${
                 isActive ? "bg-accent text-secondary" : "text-primary"
