@@ -62,7 +62,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     
     def get_permissions(self):
-        if self.action inhttps://github.com/DHOKE-HTOE-Inc/haxone/pulls ["list", "update", "partial_update"]:
+        if self.action in ["list", "update", "partial_update"]:
             return [IsAuthenticated(), IsEventOwner()]
         
         return super().get_permissions() 
