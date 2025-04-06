@@ -9,6 +9,7 @@ class Event(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     title = models.CharField(max_length=255)
     description = models.TextField()
+    requirements = models.TextField()
     organizer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name="events")
     location = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
@@ -34,6 +35,14 @@ class Event(models.Model):
             raise ValidationError("Project submission deadline must fall strictly within the event duration.")
 
     def save(self, *args, **kwargs):
+        # Strip spaces to validate empty fields
+        fields_to_check = ['title', 'description', 'requirements', 'location']
+        for field in fields_to_check:
+            value = getattr(self, field, "").strip()
+            if not value:
+                raise ValidationError({field: f"{field.replace('_', ' ').capitalize()} cannot be empty or just spaces."})
+            setattr(self, field, value)
+            
         self.full_clean()
         super().save(*args, **kwargs)
         
