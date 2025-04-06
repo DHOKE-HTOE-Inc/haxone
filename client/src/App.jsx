@@ -7,6 +7,10 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Main from "./layouts/Main";
+import Dashboard from "./pages/Dashboard";
+import ManageEvents from "./pages/ManageEvents";
+import DashboardLayout from "./layouts/DashboardLayout";
+import EventInsights from "./pages/EventInsights";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +28,29 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+    ],
+  },
+  {
+    path: "/organizer",
+    element: <DashboardLayout />,
+    children: [
+      {
+        index: true,
+        element: <Dashboard />,
+      },
+      {
+        path: "events",
+        children: [
+          {
+            index: true,
+            element: <ManageEvents />,
+          },
+          {
+            path: ":eventId",
+            element: <EventInsights />,
+          },
+        ],
       },
     ],
   },
