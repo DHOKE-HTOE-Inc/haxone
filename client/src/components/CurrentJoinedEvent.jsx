@@ -1,5 +1,5 @@
 import React from "react";
-import { CalendarDays, Group, MapPin, Users } from "lucide-react";
+import { CalendarDays, MapPin, Users } from "lucide-react";
 
 const CurrentJoinedEvent = () => {
   return (
