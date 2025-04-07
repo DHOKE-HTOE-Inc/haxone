@@ -5,7 +5,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { store } from "./store/store";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Home from "./pages/Home";
 import Main from "./layouts/Main";
 import Dashboard from "./pages/Dashboard";
 import ManageEvents from "./pages/ManageEvents";
@@ -13,6 +12,7 @@ import DashboardLayout from "./layouts/DashboardLayout";
 import EventInsights from "./pages/EventInsights";
 import Home from "./pages/Home";
 import UserProfile from "./pages/UserProfile";
+import Logout from "./pages/Logout";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/logout",
+    element: <Logout />,
   },
   {
     path: "/",

@@ -1,31 +1,16 @@
 import React from "react";
 
-const Skills = () => {
+const Skills = ({ skills }) => {
   return (
     <section className="bg-white rounded-xl shadow-xl p-8 relative">
       <div className="text-2xl mb-4 font-semibold">Skills</div>
 
       <div className="flex gap-2 items-center max-w-full flex-wrap">
-        <Skill name="html" />
-        <Skill name="css" />
-        <Skill name="js" />
-        <Skill name="react" />
-        <Skill name="python" />
-        <Skill name="html" />
-        <Skill name="css" />
-        <Skill name="css" />
-        <Skill name="react" />
-        <Skill name="html" />
-        <Skill name="js" />
-        <Skill name="js" />
-        <Skill name="react" />
-        <Skill name="js" />
-        <Skill name="python" />
-        <Skill name="python" />
-        <Skill name="css" />
-        <Skill name="html" />
-        <Skill name="react" />
-        <Skill name="python" />
+        {skills && skills.length > 0 ? (
+          skills.map((skill) => <Skill name={skill} />)
+        ) : (
+          <p className="text-neutral-500">No skills found</p>
+        )}
       </div>
     </section>
   );
