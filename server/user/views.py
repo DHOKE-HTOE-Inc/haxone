@@ -9,8 +9,9 @@ from .models import User
 from .serializers import UserSerializer
 
 class CustomUserViewSet(UserViewSet):
-    @action(detail=False, methods=['GET'], url_path='username/(?P<username>[^/.]+)')
-    def get_by_username(self, request, username=None):
-        user = get_object_or_404(self.get_queryset(), username=username)
-        serializer = self.get_serializer(user)
-        return Response(serializer.data)
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        username = self.request.query_params.get('username', None)
+        if username:
+            queryset = queryset.filter(username=username)
+        return queryset
