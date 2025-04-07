@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../utils/axios";
+import axios from "axios";
+import config from "../../config";
 
 // Token management functions
 const TOKEN_KEY = "tokens";
@@ -39,7 +41,10 @@ export const registerUser = createAsyncThunk(
   "auth/register",
   async (userData, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.post("/auth/users/", userData);
+      const response = await axios.post(
+        `${config.API_URL}auth/users/`,
+        userData
+      );
       return response.data;
     } catch (error) {
       const errorMessage =
@@ -55,10 +60,13 @@ export const loginUser = createAsyncThunk(
   "auth/login",
   async ({ username, password }, { rejectWithValue }) => {
     try {
-      const { data: tokens } = await axiosInstance.post("/auth/jwt/create/", {
-        username,
-        password,
-      });
+      const { data: tokens } = await axios.post(
+        `${config.API_URL}/auth/jwt/create/`,
+        {
+          username,
+          password,
+        }
+      );
 
       const { access: accessToken, refresh: refreshToken } = tokens;
       setTokens(accessToken, refreshToken);
