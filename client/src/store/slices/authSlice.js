@@ -6,7 +6,7 @@ import config from "../../config";
 // Token management functions
 const TOKEN_KEY = "tokens";
 
-const getTokens = () => {
+export const getTokens = () => {
   try {
     const tokens = localStorage.getItem(TOKEN_KEY);
     return tokens ? JSON.parse(tokens) : null;
@@ -25,6 +25,8 @@ const setTokens = (accessToken, refreshToken) => {
 
 const removeTokens = () => {
   localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem("username");
+  localStorage.removeItem("user_id");
 };
 
 const tokens = getTokens();
@@ -61,7 +63,7 @@ export const loginUser = createAsyncThunk(
   async ({ username, password }, { rejectWithValue }) => {
     try {
       const { data: tokens } = await axios.post(
-        `${config.API_URL}/auth/jwt/create/`,
+        `${config.API_URL}auth/jwt/create/`,
         {
           username,
           password,

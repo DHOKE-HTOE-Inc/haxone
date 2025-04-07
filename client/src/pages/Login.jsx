@@ -19,7 +19,10 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      await dispatch(loginUser(formData)).unwrap();
+      const response = await dispatch(loginUser(formData)).unwrap();
+      const user = response.user;
+      localStorage.setItem("user_id", user.id);
+      localStorage.setItem("username", user.username);
       showToast.success("Logged in Successfully");
       navigate("/");
     } catch (err) {
@@ -70,9 +73,7 @@ export default function Login() {
         required
       />
       <div className="text-center py-1">
-        <Link
-          className="text-lg font-[500] text-[var(--color-primary)] opacity-60 hover:text-gray-600 outline-none cursor-pointer"
-        >
+        <Link className="text-lg font-[500] text-[var(--color-primary)] opacity-60 hover:text-gray-600 outline-none cursor-pointer">
           Forgot password?
         </Link>
       </div>
