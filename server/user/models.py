@@ -8,6 +8,7 @@ class User(AbstractUser):
     display_name = models.CharField(max_length=255, null=True, blank=True)
     profile_img = models.ImageField(upload_to="profiles/", null=True, blank=True)
     skills = models.JSONField(null=True, blank=True, default=list)
+    current_job = models.TextField(null=True, blank=True)
     location = models.TextField(null=True, blank=True)
     joined_at = models.DateTimeField(auto_now_add=True)
 
