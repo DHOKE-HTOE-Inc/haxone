@@ -46,7 +46,7 @@ const Event = ({ status, color, eventName, date }) => {
         </div>
       </div>
       <div
-        className={`border-${color} border-2 rounded-xl bg-${color}/10 px-4 py-2 text-sm text-${color}`}
+        className={`border-success border-2 rounded-xl bg-success/10 px-4 py-2 text-sm text-success`}
       >
         {status}
       </div>
