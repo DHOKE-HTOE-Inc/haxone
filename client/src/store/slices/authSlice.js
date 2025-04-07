@@ -102,6 +102,28 @@ export const logout = createAsyncThunk("auth/logout", async () => {
   return null;
 });
 
+export const loadUser = createAsyncThunk(
+  "auth/loadUser",
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const { accessToken } = getState().auth;
+      if (!accessToken) return rejectWithValue("No token available");
+
+      const response = await axiosInstance.get("/auth/users/me/", {
+        headers: {
+          Authorization: `JWT ${accessToken}`,
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.detail || "Failed to load user"
+      );
+    }
+  }
+);
+
 // Auth slice
 const authSlice = createSlice({
   name: "auth",
@@ -162,6 +184,18 @@ const authSlice = createSlice({
         state.accessToken = null;
         state.refreshToken = null;
         state.error = null;
+      })
+
+      // Load user cases
+      .addCase(loadUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isAuthenticated = true;
+      })
+      .addCase(loadUser.rejected, (state) => {
+        state.isAuthenticated = false;
+        state.user = null;
+        state.accessToken = null;
+        state.refreshToken = null;
       });
   },
 });

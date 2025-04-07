@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
@@ -11,6 +12,7 @@ import Dashboard from "./pages/Dashboard";
 import ManageEvents from "./pages/ManageEvents";
 import DashboardLayout from "./layouts/DashboardLayout";
 import EventInsights from "./pages/EventInsights";
+import { loadUser } from "./store/slices/authSlice";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +59,16 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  // Load user on app load
+  useEffect(() => {
+    const state = store.getState();
+    const { accessToken, user } = state.auth;
+
+    if (accessToken && !user) {
+      store.dispatch(loadUser());
+    }
+  }, []);
+
   return (
     <Provider store={store}>
       <RouterProvider router={router} />
