@@ -46,7 +46,10 @@ const Event = ({ status, color, eventName, date }) => {
         </div>
       </div>
       <div
-        className={`border-success border-2 rounded-xl bg-success/10 px-4 py-2 text-sm text-success`}
+        className={`border-2 rounded-xl px-4 py-2 text-sm
+          ${color === "success" && "border-success bg-success/10 text-success"}
+          ${color === "pending" && "border-pending bg-pending/10 text-pending"} 
+          ${color === "error" && "border-error bg-error/10 text-error"}`}
       >
         {status}
       </div>
