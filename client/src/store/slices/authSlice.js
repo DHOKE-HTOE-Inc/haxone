@@ -63,7 +63,7 @@ export const loginUser = createAsyncThunk(
   async ({ username, password }, { rejectWithValue }) => {
     try {
       const { data: tokens } = await axios.post(
-        `${config.API_URL}auth/jwt/create/`,
+        `${config.API_URL}/auth/jwt/create/`,
         {
           username,
           password,

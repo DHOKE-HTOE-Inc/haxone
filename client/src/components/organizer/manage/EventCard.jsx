@@ -19,9 +19,9 @@ const EventCard = ({ id, title, image, date }) => {
         </div>
 
         {/* Date Badge */}
-        <div className="absolute bottom-4 right-4 flex items-center gap-2 bg-primary border border-[#00f767] px-3 py-1 rounded-md">
-          <CalendarDays size={14} className="text-[#00f767]" />
-          <span className="text-sm font-medium text-[#00f767]">{date}</span>
+        <div className="absolute bottom-4 right-4 flex items-center gap-2 bg-primary border-2 border-accent px-3 py-1 rounded-md">
+          <CalendarDays size={14} className="text-accent" />
+          <span className="text-sm font-medium text-accent">{date}</span>
         </div>
       </div>
     </div>

@@ -15,21 +15,21 @@ const UserProfile = () => {
   const [userInfo, setUserInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchUserProfile = async () => {
-      try {
-        setIsLoading(true);
-        const response = await axiosInstance.get(
-          `/auth/users/?username=${username}`
-        );
-        setUserInfo(response.data[0]);
-      } catch (error) {
-        console.error("Error fetching user profile:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const fetchUserProfile = async () => {
+    try {
+      setIsLoading(true);
+      const response = await axiosInstance.get(
+        `/auth/users/?username=${username}`
+      );
+      setUserInfo(response.data[0]);
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchUserProfile();
   }, []);
 
@@ -39,6 +39,8 @@ const UserProfile = () => {
         userInfo={userInfo}
         isOpen={isEditUserModalOpen}
         setIsEditUserModalOpen={setIsEditUserModalOpen}
+        setUserInfo={setUserInfo}
+        fetchUserProfile={fetchUserProfile}
       />
       {/* back button  */}
       <div className="flex items-center gap-2">

@@ -17,13 +17,15 @@ export const showToast = {
   success: (message) => {
     toast.success(message, {
       ...toastConfig,
-      icon: React.createElement(Check, { size: 24 }),
-      style: {
-        background: "var(--toast-success-bg)",
-        color: "var(--toast-success-text)",
-        boxShadow: "none",
-        borderRadius: "10px",
-      },
+      icon: React.createElement(Check, {
+        size: 24,
+        color: "var(--toast-accent-text)",
+      }),
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
     });
   },
   error: (message) => {

@@ -7,7 +7,12 @@ import { Check } from "lucide-react";
 import { Skill } from "./Skills";
 import SkillsModal from "./SkillsModal";
 
-const EditUserModal = ({ userInfo, isOpen, setIsEditUserModalOpen }) => {
+const EditUserModal = ({
+  userInfo,
+  fetchUserProfile,
+  isOpen,
+  setIsEditUserModalOpen,
+}) => {
   if (!isOpen) return null;
 
   const [displayName, setDisplayName] = useState(userInfo.display_name || "");
@@ -73,6 +78,7 @@ const EditUserModal = ({ userInfo, isOpen, setIsEditUserModalOpen }) => {
         icon: <Check className="text-accent" />,
       });
       setIsEditUserModalOpen(false);
+      fetchUserProfile();
     } catch (error) {
       console.error("Error updating user profile:", error);
       toast.error(error.response?.data?.detail || "Error updating profile");
