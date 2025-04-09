@@ -15,6 +15,7 @@ import { loadUser } from "./store/slices/authSlice";
 import Home from "./pages/Home";
 import UserProfile from "./pages/UserProfile";
 import Logout from "./pages/Logout";
+import { loadUser } from "./store/slices/authSlice";
 
 const router = createBrowserRouter([
   {
