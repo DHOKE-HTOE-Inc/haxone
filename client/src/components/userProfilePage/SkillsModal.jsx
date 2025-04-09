@@ -6,7 +6,6 @@ const SkillsModal = ({ isOpen, onClose, setSkills, skills }) => {
   const handleAddSkill = () => {
     setSkills([...skills, newSkill]);
     setNewSkill("");
-    console.log(skills);
 
     onClose();
   };
