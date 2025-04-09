@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { getTokens } from "../store/slices/authSlice.js";
+import axiosInstance from "../utils/axios";
 
 const TopNavBar = () => {
   const tokens = getTokens();
+
+  const [userInfo, setUserInfo] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        setIsLoading(true);
+        const response = await axiosInstance.get(`/auth/users/me`);
+        setUserInfo(response.data);
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
 
   return (
     <>
@@ -28,7 +48,7 @@ const TopNavBar = () => {
             {tokens ? (
               <Link to={localStorage.getItem("username")}>
                 <img
-                  src="/defaultUserProfile.png"
+                  src={userInfo?.profile_img || "/defaultUserProfile.png"}
                   alt="pfp"
                   className="w-10 h-10 object-cover rounded-full"
                 />

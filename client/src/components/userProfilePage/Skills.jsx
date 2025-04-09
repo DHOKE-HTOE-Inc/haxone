@@ -7,7 +7,7 @@ const Skills = ({ skills }) => {
 
       <div className="flex gap-2 items-center max-w-full flex-wrap">
         {skills && skills.length > 0 ? (
-          skills.map((skill) => <Skill name={skill} />)
+          skills.map((skill) => <Skill key={skill} name={skill} />)
         ) : (
           <p className="text-neutral-500">No skills found</p>
         )}
@@ -18,7 +18,7 @@ const Skills = ({ skills }) => {
 
 export default Skills;
 
-const Skill = ({ name }) => {
+export const Skill = ({ name }) => {
   return (
     <section className="w-fit py-1 px-4 border-2 rounded-full text-sm bg-neutral-100">
       {name}
