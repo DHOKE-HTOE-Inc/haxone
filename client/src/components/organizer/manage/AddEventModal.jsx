@@ -1,158 +1,280 @@
-import { useState } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { X } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { createEvent } from "../../../store/slices/eventSlice";
+import { showToast } from "../../../utils/toast";
+import {
+  TextField,
+  NumberField,
+  TextAreaField,
+  DateField,
+  FileField,
+} from "./InputFields";
+import { validateEventForm, hasErrors } from "../../../utils/formValidation";
 
 const AddEventModal = ({ isOpen, onClose }) => {
-  const [description, setDescription] = useState("");
+  const dispatch = useDispatch();
+
+  // Form state
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    requirements: "",
+    location: "",
+    img: null,
+    max_participants: "",
+    start_date: "",
+    end_date: "",
+    application_deadline: "",
+    project_submission_deadline: "",
+    reward: "",
+  });
+
+  // Track which fields have been touched by the user
+  const [touchedFields, setTouchedFields] = useState({});
+
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Calculate form errors based on current form data
+  const formErrors = useMemo(
+    () => validateEventForm(formData, true),
+    [
+      formData.title,
+      formData.description,
+      formData.requirements,
+      formData.location,
+      formData.max_participants,
+      formData.start_date,
+      formData.end_date,
+      formData.application_deadline,
+      formData.project_submission_deadline,
+      formData.reward,
+      formData.img,
+    ]
+  );
+
+  // Check if form has any errors
+  const hasFormErrors = useMemo(() => hasErrors(formErrors), [formErrors]);
+
+  // Memoize the change handler to prevent unnecessary rerenders
+  const handleChange = useCallback((e) => {
+    const { name, value, type, files } = e.target;
+
+    // Mark field as touched
+    setTouchedFields((prev) => ({
+      ...prev,
+      [name]: true,
+    }));
+
+    if (type === "file") {
+      const file = files[0];
+      setFormData((prev) => ({
+        ...prev,
+        img: file,
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Mark all fields as touched when submitting
+    setIsSubmitted(true);
+    const allFieldsTouched = Object.keys(formData).reduce((acc, key) => {
+      acc[key] = true;
+      return acc;
+    }, {});
+    setTouchedFields(allFieldsTouched);
+
+    if (hasFormErrors) {
+      showToast.error(
+        "Please correct the highlighted fields before submitting"
+      );
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Create FormData object for file upload
+    const eventData = new FormData();
+    Object.keys(formData).forEach((key) => {
+      if (formData[key] !== null && formData[key] !== "") {
+        eventData.append(key, formData[key]);
+      }
+    });
+
+    try {
+      await dispatch(createEvent(eventData)).unwrap();
+      showToast.success("Event created successfully");
+      onClose();
+    } catch (error) {
+      const errorMessage =
+        typeof error === "object" && error !== null
+          ? error.message || JSON.stringify(error)
+          : String(error);
+      showToast.error(`Failed to create event: ${errorMessage}`);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Only show error if field has been touched or form has been submitted
+  const shouldShowError = (fieldName) => {
+    return touchedFields[fieldName] || isSubmitted
+      ? formErrors[fieldName]
+      : null;
+  };
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-8 w-280 overflow-y-auto">
+      <div className="bg-white rounded-lg max-w-5xl w-full mx-auto overflow-y-auto px-6 py-2">
         {/* Modal Header */}
-        <div className="flex justify-end mb-6">
+        <div className="flex justify-between items-center p-4">
+          <h2 className="text-xl font-semibold">Create New Event</h2>
           <button
             onClick={onClose}
             className="p-2 hover:bg-gray-100 rounded-full"
+            aria-label="Close modal"
           >
-            <X size={24} />
+            <X size={20} />
           </button>
         </div>
 
         {/* Event Form */}
-        <form className="grid grid-cols-2 gap-32 mx-auto max-w-[1000px]">
-          {/* Left Column */}
-          <div className="space-y-6">
-            {/* Event Name */}
-            <div>
-              <label className="block text-gray-700 mb-2 text-sm">
-                Event Name
-              </label>
-              <input
-                type="text"
-                className="w-full h-12 px-4 py-2 border border-gray-300 rounded-xs focus:outline-none focus:ring-2 focus:ring-accent"
+        <form onSubmit={handleSubmit} className="px-8">
+          <div className="grid grid-cols-2 gap-x-32 mx-auto max-w-[1000px] pt-6">
+            {/* Left Column */}
+            <div className="space-y-6">
+              {/* Event Name */}
+              <TextField
+                label="Event Name"
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                error={shouldShowError("title")}
+              />
+
+              {/* Description */}
+              <TextAreaField
+                label="Description"
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                error={shouldShowError("description")}
+                maxLength={100}
+              />
+
+              {/* Location */}
+              <TextField
+                label="Location"
+                name="location"
+                value={formData.location}
+                onChange={handleChange}
+                error={shouldShowError("location")}
+              />
+
+              {/* Max Participants */}
+              <NumberField
+                label="Max Participants"
+                name="max_participants"
+                value={formData.max_participants}
+                onChange={handleChange}
+                error={shouldShowError("max_participants")}
+                min="1"
+              />
+
+              {/* Requirements */}
+              <TextAreaField
+                label="Requirements"
+                name="requirements"
+                value={formData.requirements}
+                onChange={handleChange}
+                error={shouldShowError("requirements")}
+                rows={1}
+              />
+
+              {/* Image */}
+              <FileField
+                label="Image"
+                name="img"
+                onChange={handleChange}
+                file={formData.img}
+                error={shouldShowError("img")}
+                accept="image/*"
               />
             </div>
 
-            {/* Description */}
-            <div>
-              <label className="block text-gray-700 mb-2 text-sm">
-                Description
-              </label>
-              <div className="relative">
-                <textarea
-                  className="w-full h-12 px-4 py-2 border border-gray-300 rounded-xs focus:outline-none focus:ring-2 focus:ring-accent resize-none pr-12"
-                  rows={1}
-                  maxLength={100}
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-                <div className="absolute bottom-2 right-2 text-sm text-gray-500">
-                  {description.length}/100
-                </div>
-              </div>
-            </div>
-
-            {/* Location */}
-            <div>
-              <label className="block text-gray-700 mb-2 text-sm">
-                Location
-              </label>
-              <input
-                type="text"
-                className="w-full h-12 px-4 py-2 border border-gray-300 rounded-xs focus:outline-none focus:ring-2 focus:ring-accent"
+            {/* Right Column */}
+            <div className="space-y-6">
+              {/* Start Date */}
+              <DateField
+                label="Start Date"
+                name="start_date"
+                value={formData.start_date}
+                onChange={handleChange}
+                error={shouldShowError("start_date")}
               />
-            </div>
 
-            {/* Image Upload */}
-            <div>
-              <label className="block text-gray-700 mb-2 text-sm">Image</label>
-              <div className="flex items-center gap-3">
-                <button
-                  type="button"
-                  className="px-4 py-2 border border-gray-300 rounded-xs hover:bg-gray-50"
-                >
-                  Choose file
-                </button>
-                <span className="text-gray-500">No file chosen</span>
-              </div>
-            </div>
+              {/* End Date */}
+              <DateField
+                label="End Date"
+                name="end_date"
+                value={formData.end_date}
+                onChange={handleChange}
+                error={shouldShowError("end_date")}
+              />
 
-            {/* Max Participants */}
-            <div>
-              <label className="block text-gray-700 mb-2 text-sm">
-                Max Participants
-              </label>
-              <input
-                type="number"
-                className="w-full h-12 px-4 py-2 border border-gray-300 rounded-xs focus:outline-none focus:ring-2 focus:ring-accent"
+              {/* Application Deadline */}
+              <DateField
+                label="Application Deadline"
+                name="application_deadline"
+                value={formData.application_deadline}
+                onChange={handleChange}
+                error={shouldShowError("application_deadline")}
+              />
+
+              {/* Project Submission Deadline */}
+              <DateField
+                label="Project Submission Deadline"
+                name="project_submission_deadline"
+                value={formData.project_submission_deadline}
+                onChange={handleChange}
+                error={shouldShowError("project_submission_deadline")}
+              />
+
+              {/* Reward */}
+              <NumberField
+                label="Reward"
+                name="reward"
+                value={formData.reward}
+                onChange={handleChange}
+                error={shouldShowError("reward")}
+                min="0"
               />
             </div>
           </div>
 
-          {/* Right Column */}
-          <div className="space-y-6">
-            {/* Start Date */}
-            <div>
-              <label className="block text-gray-700 mb-2 text-sm">
-                Start Date
-              </label>
-              <input
-                type="date"
-                className="w-full h-12 px-4 py-2 border border-gray-300 rounded-xs focus:outline-none focus:ring-2 focus:ring-accent"
-              />
-            </div>
-
-            {/* End Date */}
-            <div>
-              <label className="block text-gray-700 mb-2 text-sm">
-                End Date
-              </label>
-              <input
-                type="date"
-                className="w-full h-12 px-4 py-2 border border-gray-300 rounded-xs focus:outline-none focus:ring-2 focus:ring-accent"
-              />
-            </div>
-
-            {/* Application Deadline */}
-            <div>
-              <label className="block text-gray-700 mb-2 text-sm">
-                Application Deadline
-              </label>
-              <input
-                type="date"
-                className="w-full h-12 px-4 py-2 border border-gray-300 rounded-xs focus:outline-none focus:ring-2 focus:ring-accent"
-              />
-            </div>
-
-            {/* Project Submission Deadline */}
-            <div>
-              <label className="block text-gray-700 mb-2 text-sm">
-                Project Submission Deadline
-              </label>
-              <input
-                type="date"
-                className="w-full h-12 px-4 py-2 border border-gray-300 rounded-xs focus:outline-none focus:ring-2 focus:ring-accent"
-              />
-            </div>
-
-            {/* Reward */}
-            <div>
-              <label className="block text-gray-700 mb-2 text-sm">Reward</label>
-              <input
-                type="text"
-                className="w-full h-12 px-4 py-2 border border-gray-300 rounded-xs focus:outline-none focus:ring-2 focus:ring-accent"
-              />
-            </div>
+          {/* Submit Button */}
+          <div className="flex justify-end gap-4 max-w-[1000px] mx-auto py-8">
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={`px-6 py-2 text-white rounded-lg transition-colors ${
+                isSubmitting ? "bg-gray-400" : "bg-accent hover:bg-accent-hover"
+              } cursor-pointer`}
+            >
+              {isSubmitting ? "Creating..." : "Create Event"}
+            </button>
           </div>
         </form>
-
-        {/* Submit Button */}
-        <div className="flex justify-end mt-8">
-          <button className="px-6 py-2 bg-accent text-white rounded-lg hover:bg-accent-hover transition-colors">
-            Submit
-          </button>
-        </div>
       </div>
     </div>
   );
