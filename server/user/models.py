@@ -10,6 +10,7 @@ class User(AbstractUser):
     skills = models.JSONField(null=True, blank=True, default=list)
     current_job = models.TextField(null=True, blank=True)
     location = models.TextField(null=True, blank=True)
+    aboutme = models.TextField(null=True, blank=True)
     joined_at = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):

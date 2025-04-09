@@ -10,7 +10,7 @@ from .serializers import UserSerializer
 
 class CustomUserViewSet(UserViewSet):
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = User.objects.all()
         username = self.request.query_params.get('username', None)
         if username:
             queryset = queryset.filter(username=username)

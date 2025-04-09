@@ -7,6 +7,9 @@
   --color-accent-hover: #26a6ce;
   --color-muted-gray: #40454a;
   --color-light-gray: rgba(33, 37, 41, 0.59);
+  --color-success: #00f767;
+  --color-pending: #ffd814;
+  --color-error: #f94144;
 
   --default-font-family: "Poppins", sans-serif;
 
@@ -29,4 +32,9 @@ body::-webkit-scrollbar {
 .active {
   border-bottom-width: 2px;
   border-color: #4cc9f0;
+}
+
+.state.active {
+  background-color: white;
+  border: none;
 }

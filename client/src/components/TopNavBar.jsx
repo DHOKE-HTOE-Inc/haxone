@@ -1,7 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { getTokens } from "../store/slices/authSlice.js";
+import axiosInstance from "../utils/axios";
 
 const TopNavBar = () => {
+  const tokens = getTokens();
+
+  const [userInfo, setUserInfo] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        setIsLoading(true);
+        const response = await axiosInstance.get(`/auth/users/me`);
+        setUserInfo(response.data);
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
+
   return (
     <>
       <nav className="fixed w-full">
@@ -21,14 +44,31 @@ const TopNavBar = () => {
                 Contact
               </NavLink>
             </div>
-            <div>
-              <button className="mx-2 px-4 py-2 font-semibold text-lg cursor-pointer">
-                Register
-              </button>
-              <button className="mx-2 px-4 py-2 font-semibold text-lg text-secondary bg-accent hover:bg-accent-hover rounded-md duration-200 transition-colors cursor-pointer">
-                Login
-              </button>
-            </div>
+
+            {tokens ? (
+              <Link to={localStorage.getItem("username")}>
+                <img
+                  src={userInfo?.profile_img || "/defaultUserProfile.png"}
+                  alt="pfp"
+                  className="w-10 h-10 object-cover rounded-full"
+                />
+              </Link>
+            ) : (
+              <div>
+                <Link
+                  to={"/register"}
+                  className="mx-2 px-4 py-2 font-semibold text-lg cursor-pointer"
+                >
+                  Register
+                </Link>
+                <Link
+                  to={"/login"}
+                  className="mx-2 px-4 py-2 font-semibold text-lg text-secondary bg-accent hover:bg-accent-hover rounded-md duration-200 transition-colors cursor-pointer"
+                >
+                  Login
+                </Link>
+              </div>
+            )}
           </div>
         </section>
       </nav>
