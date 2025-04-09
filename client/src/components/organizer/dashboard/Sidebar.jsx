@@ -16,7 +16,7 @@ const navItems = [
 
 const Sidebar = () => {
   return (
-    <aside className="flex flex-col items-center gap-12 flex-shrink-0 w-60 h-screen px-3 py-6 pb-12 bg-secondary">
+    <aside className="h-full w-60 bg-secondary flex flex-col items-center gap-12 px-3 py-6">
       {/* Logo */}
       <Link to="/" className="text-3xl font-medium">
         Haxone

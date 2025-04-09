@@ -1,146 +1,172 @@
 import { Check, Trash2 } from "lucide-react";
+import { useMemo } from "react";
+import {
+  TextField,
+  NumberField,
+  TextAreaField,
+  DateField,
+  FileField,
+} from "../manage/InputFields";
+import { validateEventForm, hasErrors } from "../../../utils/formValidation";
 
-const GeneralTab = ({ formData, handleChange }) => {
-  const DateInput = ({ label, name, value }) => (
-    <div>
-      <label className="block text-gray-700 mb-2 text-sm">{label}</label>
-      <div className="relative">
-        <input
-          type="date"
-          name={name}
-          value={value}
-          onChange={handleChange}
-          className="w-full h-12 px-4 py-2 text-sm border border-gray-300 rounded-xs focus:outline-none focus:ring-2 focus:ring-accent appearance-none"
-        />
-      </div>
-    </div>
+const GeneralTab = ({
+  formData,
+  handleChange,
+  handleSubmit,
+  handleDelete,
+  isSubmitting,
+  isDirty,
+}) => {
+  // Calculate validation errors (image not required for editing)
+  const formErrors = useMemo(
+    () => validateEventForm(formData, false),
+    [formData]
   );
 
+  // Check if any validation errors exist
+  const hasFormErrors = useMemo(() => hasErrors(formErrors), [formErrors]);
+
   return (
-    <>
+    <form onSubmit={handleSubmit} className="px-8">
       <div className="grid grid-cols-2 gap-x-32 mx-auto max-w-[1000px] pt-6">
         {/* Left Column */}
         <div className="space-y-6">
           {/* Event Name */}
-          <div>
-            <label className="block text-gray-700 mb-2 text-sm">
-              Event Name
-            </label>
-            <input
-              type="text"
-              name="eventName"
-              value={formData.eventName}
-              onChange={handleChange}
-              className="w-full h-12 px-4 py-2 text-sm border border-gray-300 rounded-xs focus:outline-none focus:ring-2 focus:ring-accent"
-            />
-          </div>
+          <TextField
+            label="Event Name"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            error={formErrors.title}
+          />
 
           {/* Description */}
-          <div>
-            <label className="block text-gray-700 mb-2 text-sm">
-              Description
-            </label>
-            <div className="relative">
-              <textarea
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                className="w-full h-12 px-4 py-2 text-sm border border-gray-300 rounded-xs focus:outline-none focus:ring-2 focus:ring-accent resize-none pr-12"
-                rows={1}
-                maxLength={100}
-              />
-              <span className="absolute bottom-2 right-2 text-xs text-gray-500">
-                {formData.description.length}/100
-              </span>
-            </div>
-          </div>
+          <TextAreaField
+            label="Description"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            error={formErrors.description}
+            maxLength={100}
+          />
 
           {/* Location */}
-          <div>
-            <label className="block text-gray-700 mb-2 text-sm">Location</label>
-            <input
-              type="text"
-              name="location"
-              value={formData.location}
-              onChange={handleChange}
-              className="w-full h-12 px-4 py-2 text-sm border border-gray-300 rounded-xs focus:outline-none focus:ring-2 focus:ring-accent"
-            />
-          </div>
-
-          {/* Image */}
-          <div>
-            <label className="block text-gray-700 mb-2 text-sm">Image</label>
-            <div className="flex items-center gap-3">
-              <button className="px-4 py-2 text-sm border border-gray-300 rounded-xs hover:bg-gray-50">
-                Choose file
-              </button>
-              <span className="text-sm text-gray-500">No file chosen</span>
-            </div>
-          </div>
+          <TextField
+            label="Location"
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+            error={formErrors.location}
+          />
 
           {/* Max Participants */}
-          <div>
-            <label className="block text-gray-700 mb-2 text-sm">
-              Max Participants
-            </label>
-            <input
-              type="number"
-              name="maxParticipants"
-              value={formData.maxParticipants}
-              onChange={handleChange}
-              className="w-full h-12 px-4 py-2 text-sm border border-gray-300 rounded-xs focus:outline-none focus:ring-2 focus:ring-accent"
-            />
-          </div>
+          <NumberField
+            label="Max Participants"
+            name="max_participants"
+            value={formData.max_participants}
+            onChange={handleChange}
+            error={formErrors.max_participants}
+            min="1"
+          />
+
+          <TextAreaField
+            label="Requirements"
+            name="requirements"
+            value={formData.requirements}
+            onChange={handleChange}
+            error={formErrors.requirements}
+            rows={1}
+          />
+
+          {/* Image */}
+          <FileField
+            label="Image"
+            name="img"
+            onChange={handleChange}
+            file={formData.img}
+            error={formErrors.img}
+            accept="image/*"
+          />
         </div>
 
         {/* Right Column */}
         <div className="space-y-6">
-          <DateInput
+          {/* Start Date */}
+          <DateField
             label="Start Date"
-            name="startDate"
-            value={formData.startDate}
+            name="start_date"
+            value={formData.start_date}
+            onChange={handleChange}
+            error={formErrors.start_date}
           />
-          <DateInput label="End Date" name="endDate" value={formData.endDate} />
-          <DateInput
+
+          {/* End Date */}
+          <DateField
+            label="End Date"
+            name="end_date"
+            value={formData.end_date}
+            onChange={handleChange}
+            error={formErrors.end_date}
+          />
+
+          {/* Application Deadline */}
+          <DateField
             label="Application Deadline"
-            name="applicationDeadline"
-            value={formData.applicationDeadline}
+            name="application_deadline"
+            value={formData.application_deadline}
+            onChange={handleChange}
+            error={formErrors.application_deadline}
           />
-          <DateInput
+
+          {/* Project Submission Deadline */}
+          <DateField
             label="Project Submission Deadline"
-            name="submissionDeadline"
-            value={formData.submissionDeadline}
+            name="project_submission_deadline"
+            value={formData.project_submission_deadline}
+            onChange={handleChange}
+            error={formErrors.project_submission_deadline}
           />
 
           {/* Reward */}
-          <div>
-            <label className="block text-gray-700 mb-2 text-sm">Reward</label>
-            <select
-              name="reward"
-              value={formData.reward}
-              onChange={handleChange}
-              className="w-full h-12 px-4 py-2 text-sm border border-gray-300 rounded-xs focus:outline-none focus:ring-2 focus:ring-accent appearance-none bg-white"
-            >
-              <option value="1000">1000</option>
-              <option value="2000">2000</option>
-              <option value="3000">3000</option>
-            </select>
-          </div>
+          <NumberField
+            label="Reward"
+            name="reward"
+            value={formData.reward}
+            onChange={handleChange}
+            error={formErrors.reward}
+            min="0"
+          />
         </div>
       </div>
 
       {/* Action Buttons */}
-      <div className="flex justify-end gap-4 mt-8">
-        <button className="px-6 py-2 bg-accent text-white rounded-lg hover:bg-accent-hover transition-colors flex items-center gap-2 cursor-pointer">
+      <div className="flex justify-end gap-4 max-w-[1000px] mx-auto py-8">
+        {/* Update Button */}
+        <button
+          type="submit"
+          disabled={isSubmitting || !isDirty || hasFormErrors}
+          className={`px-6 py-2 text-white rounded-lg flex items-center gap-2 transition-colors ${
+            isDirty && !hasFormErrors
+              ? "bg-accent hover:bg-accent-hover cursor-pointer"
+              : "bg-gray-400 cursor-not-allowed"
+          }`}
+        >
           <Check size={20} />
-          Confirm
+          {isSubmitting ? "Updating..." : "Confirm"}
         </button>
-        <button className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors flex items-center gap-2 cursor-pointer">
+
+        {/* Delete Button */}
+        <button
+          type="button"
+          onClick={handleDelete}
+          disabled={isSubmitting}
+          className="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors flex items-center gap-2 cursor-pointer"
+        >
           <Trash2 size={20} />
           Delete
         </button>
       </div>
-    </>
+    </form>
   );
 };
 
