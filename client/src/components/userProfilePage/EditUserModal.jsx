@@ -229,7 +229,7 @@ const EditUserModal = ({
             <div className="mt-10 w-full flex gap-8 items-center">
               <button
                 type="button"
-                className="w-full  px-12 py-4 border-2 border-primary rounded-md cursor-pointer hover:bg-accent-hover hover:text-secondary hover:border-accent-hover transition-all duration-200 ease-in-out"
+                className="w-full  px-12 py-2 border-2 border-primary rounded-md cursor-pointer hover:bg-primary/10  transition-all duration-200 ease-in-out"
                 onClick={() => setIsEditUserModalOpen(false)}
               >
                 Cancel
@@ -244,7 +244,7 @@ const EditUserModal = ({
               ) : (
                 <button
                   type="submit"
-                  className="w-full text-xl px-12 py-4 text-secondary bg-accent hover:bg-accent-hover rounded-md cursor-pointer transition-colors duration-200 ease-in-out"
+                  className="w-full text-xl px-12 py-2 text-secondary bg-accent hover:bg-accent-hover rounded-md cursor-pointer transition-colors duration-200 ease-in-out"
                 >
                   Save
                 </button>

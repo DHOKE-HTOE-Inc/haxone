@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const TopNavBar = () => {
   const tokens = getTokens();
-
+  const [isShowProfileDropDown, setIsShowProfileDropDown] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const { user } = useSelector((state) => state.auth);
@@ -32,13 +32,22 @@ const TopNavBar = () => {
             </div>
 
             {tokens ? (
-              <Link to={localStorage.getItem("username")}>
-                <img
-                  src={user?.profile_img || "/defaultUserProfile.png"}
-                  alt="pfp"
-                  className="w-10 h-10 object-cover rounded-full"
+              <>
+                <div className="cursor-pointer">
+                  <img
+                    src={user?.profile_img || "/defaultUserProfile.png"}
+                    alt="pfp"
+                    className="w-10 h-10 object-cover rounded-full"
+                    onClick={() =>
+                      setIsShowProfileDropDown(!isShowProfileDropDown)
+                    }
+                  />
+                </div>
+                <ProfileDropDown
+                  isShowProfileDropDown={isShowProfileDropDown}
+                  username={user.username}
                 />
-              </Link>
+              </>
             ) : (
               <div>
                 <Link
@@ -63,3 +72,30 @@ const TopNavBar = () => {
 };
 
 export default TopNavBar;
+
+const ProfileDropDown = ({ isShowProfileDropDown, username }) => {
+  if (!isShowProfileDropDown) {
+    return null;
+  }
+
+  if (isShowProfileDropDown) {
+    return (
+      <>
+        <section className="absolute text-center shadow-2xl -bottom-20 right-42 flex flex-col rounded">
+          <Link
+            to={username}
+            className="px-4 py-2 hover:bg-accent/20 font-semibold"
+          >
+            Profile
+          </Link>
+          <Link
+            to="/logout"
+            className="px-4 py-2 hover:bg-error/20 font-semibold"
+          >
+            Logout
+          </Link>
+        </section>
+      </>
+    );
+  }
+};
