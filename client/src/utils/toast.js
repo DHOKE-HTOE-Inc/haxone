@@ -31,13 +31,15 @@ export const showToast = {
   error: (message) => {
     toast.error(message, {
       ...toastConfig,
-      icon: React.createElement(AlertCircle, { size: 24 }),
-      style: {
-        background: "var(--toast-error-bg)",
+      icon: React.createElement(AlertCircle, {
+        size: 24,
         color: "var(--toast-error-text)",
-        boxShadow: "none",
-        borderRadius: "10px",
-      },
+      }),
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
     });
   },
 };
