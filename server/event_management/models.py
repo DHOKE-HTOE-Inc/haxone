@@ -50,10 +50,14 @@ class Event(models.Model):
         return f"{self.title} - {self.start_date} to {self.end_date}"
     
 class Application(models.Model):
+    PENDING = "pending"
+    ACCEPTED = "accepted"
+    REJECTED = "rejected"
+    
     STATUS_CHOICES = [
-        ('pending', 'Pending'),
-        ('accepted', 'Accepted'),
-        ('rejected', 'Rejected')
+        (PENDING, 'Pending'),
+        (ACCEPTED, 'Accepted'),
+        (REJECTED, 'Rejected')
     ]
     
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
