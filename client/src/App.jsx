@@ -15,6 +15,8 @@ import Home from "./pages/Home";
 import UserProfile from "./pages/UserProfile";
 import Logout from "./pages/Logout";
 import { loadUser } from "./store/slices/authSlice";
+import Events from "./pages/Events";
+import EventDetail from "./pages/EventDetail";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,11 @@ const router = createBrowserRouter([
         index: true,
         element: <Home />,
       },
+      {
+        path: "events",
+        element: <Events />,
+      },
+      { path: "event-detail/:id", element: <EventDetail /> },
     ],
   },
   {
