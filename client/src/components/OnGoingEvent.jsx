@@ -19,7 +19,7 @@ const OnGoingEvent = () => {
     <section id="ongoing-events" className="container mx-auto w-full my-20">
       <div className="flex justify-between items-center mb-8">
         <div className="text-4xl font-semibold">On-Going Events</div>
-        <Link className="flex gap-4 items-center">
+        <Link to={"/events"} className="flex gap-4 items-center">
           see all <ArrowRight />
         </Link>
       </div>

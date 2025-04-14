@@ -1,6 +1,6 @@
 import { ChevronLeft } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import InfoCard from "../components/userProfilePage/infoCard";
+import InfoCard from "../components/userProfilePage/InfoCard";
 import Application from "../components/userProfilePage/Application";
 import { Link, useParams } from "react-router-dom";
 import About from "../components/userProfilePage/About";
@@ -14,6 +14,7 @@ const UserProfile = () => {
 
   const [userInfo, setUserInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  console.log(userInfo);
 
   const fetchUserProfile = async () => {
     try {

@@ -13,7 +13,7 @@ const TopNavBar = () => {
 
   return (
     <>
-      <nav className="fixed w-full">
+      <nav className="fixed w-full bg-white/50 backdrop-blur-sm z-50">
         <section className="container mx-auto py-4 flex justify-between items-center">
           <Link to={"/"} className="text-2xl font-bold">
             Haxone
@@ -84,7 +84,7 @@ const ProfileDropDown = ({ isShowProfileDropDown, username }) => {
         <section className="absolute text-center shadow-2xl -bottom-20 right-40 flex flex-col rounded-md">
           <Link
             to={username}
-            className="px-4 py-2 hover:bg-accent/20 font-semibold"
+            className="px-4 py-2 hover:bg-neutral-100 font-semibold"
           >
             <div className="flex items-center gap-2">
               <User />
@@ -93,7 +93,7 @@ const ProfileDropDown = ({ isShowProfileDropDown, username }) => {
           </Link>
           <Link
             to="/logout"
-            className="px-4 py-2 hover:bg-error/20 font-semibold"
+            className="px-4 py-2 hover:text-error hover:bg-neutral-100 font-semibold"
           >
             <div className="flex items-center gap-2">
               <LogOut />
