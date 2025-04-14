@@ -70,7 +70,7 @@ const EventDetail = () => {
   return (
     <section className="pt-14 text-xl">
       <div className="container mx-auto">
-        <div className="text-center text-4xl my-10 font-semibold">
+        <div className="text-center text-4xl my-10 font-semibold uppercase">
           {event.title}
         </div>
         <div className="flex gap-10">
@@ -82,31 +82,38 @@ const EventDetail = () => {
           <div className="bg-accent/10 border-2 border-accent rounded-md w-1/2 flex flex-col gap-2 justify-around pl-8 py-2 shadow">
             <div className="flex items-center gap-4">
               <CalendarDays />
-              Start Date - {event.start_date}
+              Start Date - {event.start_date ? event.start_date : "Not set"}
             </div>
             <div className="flex items-center gap-4">
               <CalendarDays />
-              End Date - {event.end_date}
+              End Date - {event.end_date ? event.end_date : "Not set"}
             </div>
             <div className="flex items-center gap-4">
               <MapPin />
-              Location - {event.location}
+              Location - {event.location ? event.location : "Not set"}
             </div>
             <div className="flex items-center gap-4">
               <ScrollText />
-              Application Deadline - {event.application_deadline}
+              Application Deadline -{" "}
+              {event.application_deadline
+                ? event.application_deadline
+                : "Not set"}
             </div>
             <div className="flex items-center gap-4">
               <FileInput />
-              Project Submission Deadline - {event.project_submission_deadline}
+              Project Submission Deadline -{" "}
+              {event.project_submission_deadline
+                ? event.project_submission_deadline
+                : "Not set"}
             </div>
             <div className="flex items-center gap-4">
               <Users />
-              Max-participants- {event.max_participants}
+              Max-participants -{" "}
+              {event.max_participants ? event.max_participants : "Not set"}
             </div>
             <div className="flex items-center gap-4">
               <Trophy />
-              Reward - {event.reward}
+              Reward - {event.reward ? event.reward : "Not set"}
             </div>
           </div>
         </div>

@@ -3,10 +3,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Event = ({ event }) => {
+  console.log(event);
+
   return (
     <section className="bg-white min-w-md max-w-md p-8 rounded-xl shadow-md">
       <div>
-        <img src="/eventdefault.png" alt="eventdefault" className="rounded" />
+        <img
+          src={`http://localhost:8000/${event?.img}` || "/eventdefault.png"}
+          alt="eventdefault"
+          className="rounded"
+        />
       </div>
 
       {/* text  */}
