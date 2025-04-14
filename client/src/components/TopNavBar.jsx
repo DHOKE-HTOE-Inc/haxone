@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { getTokens } from "../store/slices/authSlice.js";
-import axiosInstance from "../utils/axios";
 import { useSelector } from "react-redux";
+import { LogOut, User } from "lucide-react";
 
 const TopNavBar = () => {
   const tokens = getTokens();
@@ -81,18 +81,24 @@ const ProfileDropDown = ({ isShowProfileDropDown, username }) => {
   if (isShowProfileDropDown) {
     return (
       <>
-        <section className="absolute text-center shadow-2xl -bottom-20 right-42 flex flex-col rounded">
+        <section className="absolute text-center shadow-2xl -bottom-20 right-40 flex flex-col rounded-md">
           <Link
             to={username}
             className="px-4 py-2 hover:bg-accent/20 font-semibold"
           >
-            Profile
+            <div className="flex items-center gap-2">
+              <User />
+              Profile
+            </div>
           </Link>
           <Link
             to="/logout"
             className="px-4 py-2 hover:bg-error/20 font-semibold"
           >
-            Logout
+            <div className="flex items-center gap-2">
+              <LogOut />
+              Logout
+            </div>
           </Link>
         </section>
       </>
