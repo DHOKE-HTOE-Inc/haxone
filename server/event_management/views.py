@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.db import transaction
 from .models import Event, Application
 from .serializers import EventSerializer, ApplicationSerializer, SimpleEventSerializer, CreateApplicationSerializer
-from .permissions import IsEventOwner
+from .permissions import IsEventOwner, IsNotStaff
 
 class EventViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
@@ -41,7 +41,7 @@ class EventViewSet(viewsets.ModelViewSet):
         serializer = SimpleEventSerializer(queryset, many=True)
         return Response(serializer.data)
     
-    @action(detail=True, methods=["post"], url_path="apply", serializer_class=CreateApplicationSerializer)
+    @action(detail=True, methods=["post"], url_path="apply", serializer_class=CreateApplicationSerializer, permission_classes=[IsAuthenticated, IsNotStaff])
     def apply_to_event(self, request, pk=None):
         event = get_object_or_404(Event, id=pk)
 
@@ -54,7 +54,7 @@ class EventViewSet(viewsets.ModelViewSet):
         serializer = CreateApplicationSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         
-        application = Application.objects.create(
+        Application.objects.create(
             user=request.user,
             event=event,
             showcase_url=serializer.validated_data["showcase_url"]

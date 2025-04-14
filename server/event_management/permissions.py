@@ -22,4 +22,8 @@ class IsEventOwner(BasePermission):
             return obj.event.organizer == request.user
         
         return False
+
+class IsNotStaff(BasePermission):
+    def has_permission(self, request, view):
+        return not request.user.is_staff
     
