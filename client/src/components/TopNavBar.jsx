@@ -45,7 +45,7 @@ const TopNavBar = () => {
                 </div>
                 <ProfileDropDown
                   isShowProfileDropDown={isShowProfileDropDown}
-                  username={user.username}
+                  username={user?.username}
                 />
               </>
             ) : (
