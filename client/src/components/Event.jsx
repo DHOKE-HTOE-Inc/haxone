@@ -1,35 +1,46 @@
 import { CalendarDays, MapPin } from "lucide-react";
 import React from "react";
+import { Link } from "react-router-dom";
 
-const Event = () => {
+const Event = ({ event }) => {
+  console.log(event);
+
   return (
-    <section className="bg-white min-w-md  p-8 rounded-xl shadow-md">
+    <section className="bg-white min-w-md max-w-md p-8 rounded-xl shadow-md">
       <div>
-        <img src="/eventdefault.png" alt="eventdefault" className="rounded" />
+        <img
+          src={`http://localhost:8000/${event?.img}` || "/eventdefault.png"}
+          alt="eventdefault"
+          className="rounded"
+        />
       </div>
 
       {/* text  */}
-      <div>
-        <div className="text-2xl font-semibold my-4">
-          Tech Innovators Summit 2025
-        </div>
-        <div className="text-muted-gray">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo facilis
-          ducimus ratione suscipit. Rem deleniti aliquid earum sint accusantium?
+      <div className="min-h-60 flex flex-col justify-between">
+        <div>
+          <div className="text-2xl font-semibold my-4">{event.title}</div>
+          <div className="text-muted-gray">
+            {event.description}
+            ducimus ratione suscipit. Rem deleniti aliquid earum sint
+            accusantium?
+          </div>
         </div>
 
         <div className="flex mt-8 justify-between items-end">
           <div className="flex flex-col gap-4">
             <div className="flex gap-4">
-              <CalendarDays /> <div>May 10, 2025</div>
+              <CalendarDays /> <div>{event.start_date}</div>
             </div>
             <div className="flex gap-4">
-              <MapPin /> <div>Bagon, Myanmar</div>
+              <MapPin /> <div>{event.location}</div>
             </div>
           </div>
-          <button className="px-8 h-12 text-secondary bg-accent hover:bg-accent-hover rounded-md cursor-pointer transition-colors duration-200 ease-in-out">
+          <Link
+            to={`/event-detail/${event.id}`}
+            className="px-8 h-12 flex items-center justify-center text-secondary bg-accent hover:bg-accent-hover rounded-md cursor-pointer transition-colors duration-200 ease-in-out"
+          >
             Explore
-          </button>
+          </Link>
         </div>
       </div>
     </section>

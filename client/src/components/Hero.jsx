@@ -2,6 +2,7 @@ import React from "react";
 import { SquareChevronDown } from "lucide-react";
 import Ellipse from "../assests/Ellipse";
 import Ellipse2 from "../assests/Ellipse2";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -28,9 +29,12 @@ const Hero = () => {
             <button className="text-xl px-12 py-4 border-2 border-primary rounded-md cursor-pointer hover:bg-accent-hover hover:text-secondary hover:border-accent-hover transition-all duration-200 ease-in-out">
               How it works
             </button>
-            <button className="text-xl px-12 py-4 text-secondary bg-accent hover:bg-accent-hover rounded-md cursor-pointer transition-colors duration-200 ease-in-out">
+            <Link
+              to={"/events"}
+              className="text-xl px-12 py-4 text-secondary bg-accent hover:bg-accent-hover rounded-md cursor-pointer transition-colors duration-200 ease-in-out"
+            >
               Browse Hackathons
-            </button>
+            </Link>
           </div>
         </div>
 
