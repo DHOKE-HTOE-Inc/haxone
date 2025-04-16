@@ -7,13 +7,15 @@ class UserApplicationStatusSerializer(serializers.Serializer):
     status = serializers.SerializerMethodField()
     
     def get_has_applied(self, obj):
-        user = self.context['request'].user    
+        user = self.context['request'].user
+        if not user.is_authenticated: return False    
         # If the user is not a staff, check if they have applied for the event
         # If the user is a staff, return False    
         return Application.objects.filter(user=user, event=obj).exists() if not user.is_staff else False
     
     def get_status(self, obj):
         user = self.context['request'].user
+        if not user.is_authenticated: return None
         # If the user is a staff, return None
         # If the user is not a staff, get the application status if exists 
         if user.is_staff:

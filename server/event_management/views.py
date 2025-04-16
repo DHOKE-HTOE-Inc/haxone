@@ -18,13 +18,13 @@ class EventViewSet(viewsets.ModelViewSet):
     ordering_fields = ["start_date"]
     
     def get_permissions(self):
-        if self.action in ["create"]:
+        if self.action in ["create", "list"]:
             return [IsAuthenticated(), IsAdminUser()]
         
         if self.action in ["update", "partial_update", "destroy"]:
             return [IsAuthenticated(), IsEventOwner()]
         
-        return [IsAuthenticated()]
+        return []
     
     def get_queryset(self):
         if self.request.user.is_staff:
