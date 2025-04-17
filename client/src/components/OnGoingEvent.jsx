@@ -20,7 +20,7 @@ const OnGoingEvent = () => {
       id="ongoing-events"
       className="container mx-auto w-full my-20 px-8 md:px-0"
     >
-      <div className="flex justify-between items-center mb-4 md:mb-8">
+      <div className="flex justify-between items-center mb-8">
         <div className="text-2xl md:text-3xl xl:text-4xl font-semibold">
           On-Going Events
         </div>
@@ -38,6 +38,13 @@ const OnGoingEvent = () => {
           <Event key={event.id} event={event} />
         ))}
       </div>
+
+      <Link
+        to={"/events"}
+        className="bg-secondary mt-8 text-primary border-2 border-primary w-fit mx-auto px-4 py-2 rounded-md gap-4 items-center flex md:hidden hover:text-primary-color"
+      >
+        see all <ArrowRight />
+      </Link>
     </section>
   );
 };

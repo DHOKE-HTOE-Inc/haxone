@@ -51,7 +51,7 @@ const TopNavBar = ({ isShowMobileMenu, setIsShowMobileMenu }) => {
               <div>
                 <Link
                   to={"/register"}
-                  className="mx-2 px-4 py-2 font-semibold md:text-lg cursor-pointer"
+                  className="mx-2 px-4 py-2 font-semibold md:text-lg cursor-pointer hidden md:block"
                 >
                   Register
                 </Link>
