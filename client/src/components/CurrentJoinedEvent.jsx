@@ -3,7 +3,7 @@ import { CalendarDays, MapPin, Users } from "lucide-react";
 
 const CurrentJoinedEvent = () => {
   return (
-    <section className="container mx-auto mt-0 md:mt-12 mb-20 px-8">
+    <section className="container mx-auto mt-0 md:mt-12 mb-20 px-8 md:px-0">
       <div className="text-2xl md:text-3xl xl:text-4xl font-semibold mb-8">
         Currently Joined Event
       </div>

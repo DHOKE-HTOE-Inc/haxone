@@ -8,7 +8,7 @@ const Home = () => {
     <>
       <Hero />
       <CurrentJoinedEvent />
-      {/* <OnGoingEvent /> */}
+      <OnGoingEvent />
     </>
   );
 };
