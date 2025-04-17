@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Hero from "../components/Hero";
 import OnGoingEvent from "../components/OnGoingEvent";
 import CurrentJoinedEvent from "../components/CurrentJoinedEvent";

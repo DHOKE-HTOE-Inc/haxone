@@ -8,7 +8,7 @@ const Hero = () => {
   return (
     <section className="container mx-auto h-screen w-full">
       {/* Main content container */}
-      <div className="flex items-end h-[75%]">
+      <div className="flex items-center md:items-end h-[90%] md:h-[75%]">
         {/* Left section - Text content */}
         <div className="w-full md:w-1/2">
           {/* main text  */}
@@ -60,7 +60,7 @@ const Hero = () => {
       </div>
 
       {/* arrowdown  */}
-      <div className="flex items-center justify-center mt-20 md:mt-28 lg:mt-32 cursor-pointer">
+      <div className="flex items-center justify-center md:mt-28 lg:mt-32 cursor-pointer">
         <SquareChevronDown
           strokeWidth={1}
           className="w-10 h-10 md:w-[50px] md:h-[50px] lg:w-[60px] lg:h-[60px]"
