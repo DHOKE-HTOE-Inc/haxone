@@ -10,6 +10,8 @@ from django.db import transaction
 from .models import Event, Application
 from .serializers import EventSerializer, ApplicationSerializer, SimpleEventSerializer, CreateApplicationSerializer
 from .permissions import IsEventOwner, IsNotStaff
+from .paginations import ApplicationPagination
+from django_filters.rest_framework import DjangoFilterBackend
 
 class EventViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
@@ -53,12 +55,7 @@ class EventViewSet(viewsets.ModelViewSet):
             
         serializer = CreateApplicationSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        
-        Application.objects.create(
-            user=request.user,
-            event=event,
-            showcase_url=serializer.validated_data["showcase_url"]
-        )
+        serializer.save(user=request.user, event=event)
         
         return Response(
             {"detail": "Application submitted successfully."}, 
@@ -69,6 +66,12 @@ class ApplicationViewSet(viewsets.ModelViewSet):
     serializer_class = ApplicationSerializer
     # Specify only allowed HTTP methods
     http_method_names = ["get", "post"]
+    pagination_class = ApplicationPagination
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
+    filterset_fields = ["status"]
+    search_fields = ["user__username"]
+    ordering_fields = ["applied_at"]
+    ordering = ["-applied_at"]
 
     def get_permissions(self):
         if self.action in ["list", "accept", "bulk-status-update"]:
@@ -85,7 +88,7 @@ class ApplicationViewSet(viewsets.ModelViewSet):
         return Response({"detail": "Method not allowed. Applications cannot be created via this endpoint."}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
         
     @action(detail=False, methods=["post"], url_path="bulk-status-update")
-    def accept_application(self, request, pk=None):
+    def accept_application(self, request, **kwargs):
         # Get Event Id from nested URL
         event = get_object_or_404(Event, id=self.kwargs.get("event_pk"))
         
