@@ -12,7 +12,7 @@ const InfoCard = ({ userInfo, setIsEditUserModalOpen }) => {
         alt="pfp"
         className="mx-auto rounded-full w-32"
       />
-      <div className="my-2 font-semibold text-xl">
+      <div className="my-2 font-semibold text-2xl">
         {userInfo?.display_name
           ? userInfo?.display_name
           : `@${userInfo?.username}`}
@@ -30,14 +30,14 @@ const InfoCard = ({ userInfo, setIsEditUserModalOpen }) => {
         )}
       </div>
 
-      <div className="flex gap-4 justify-center items-center mt-4">
-        <button className="px-8 py-2 border-2 border-primary rounded-md cursor-pointer hover:bg-accent-hover hover:text-secondary hover:border-accent-hover transition-all duration-200 ease-in-out">
+      <div className="flex gap-4 justify-center items-center mt-4 md:flex-row flex-col">
+        <button className="w-[80%] md:w-fit  px-8 py-2 border-2 border-primary rounded-md cursor-pointer hover:bg-accent-hover hover:text-secondary hover:border-accent-hover transition-all duration-200 ease-in-out">
           Share Profile
         </button>
         {userInfo?.id === localStorage.getItem("user_id") && (
           <button
             onClick={() => setIsEditUserModalOpen(true)}
-            className="px-8 py-2 border-2 border-primary rounded-md cursor-pointer hover:bg-accent-hover hover:text-secondary hover:border-accent-hover transition-all duration-200 ease-in-out"
+            className="w-[80%] md:w-fit px-8 py-2 border-2 border-primary rounded-md cursor-pointer hover:bg-accent-hover hover:text-secondary hover:border-accent-hover transition-all duration-200 ease-in-out"
           >
             Edit Profile
           </button>

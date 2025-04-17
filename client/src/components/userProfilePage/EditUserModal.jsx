@@ -87,9 +87,16 @@ const EditUserModal = ({
     }
   };
 
+  const handleDelete = (skill) => {
+    setSkills(skills.filter((s) => s !== skill));
+  };
+
   return (
-    <section className="bg-primary/40 fixed z-10 inset-0 flex items-center justify-center">
-      <Form className="bg-white rounded-md p-4 w-1/2" onSubmit={handleSubmit}>
+    <section className="bg-primary/40 fixed z-10 inset-0 flex items-start md:items-center justify-center  overflow-y-auto md:overflow-y-hidden">
+      <Form
+        className="bg-white rounded-md md:w-1/2 w-full p-4"
+        onSubmit={handleSubmit}
+      >
         {/* back button  */}
         <div className="flex items-center ">
           <button
@@ -106,8 +113,8 @@ const EditUserModal = ({
         {/* form  */}
 
         {/* left section  */}
-        <div className="flex px-6 py-8">
-          <div className="w-1/3 flex flex-col gap-4 items-center">
+        <div className="flex flex-col md:flex-row px-6 py-8">
+          <div className="w-full md:w-1/3 flex flex-col gap-4 items-center">
             <img
               src={previewUrl || "/defaultUserProfile.png"}
               alt="Profile preview"
@@ -123,10 +130,10 @@ const EditUserModal = ({
             />
             <button
               type="button"
-              className="text-primary border-2 border-primary px-4 py-2 rounded-md text-center flex items-center gap-2 w-fit font-medium cursor-pointer"
+              className="text-primary text-sm md:text-base border-2 border-primary px-4 py-2 rounded-md text-center flex items-center gap-2 w-fit font-medium cursor-pointer"
               onClick={() => document.getElementById("profileImg").click()}
             >
-              <Upload />
+              <Upload className="w-4 h-4 md:w-6 md:h-6" />
               Upload Image
             </button>
 
@@ -137,7 +144,7 @@ const EditUserModal = ({
           </div>
 
           {/* right section  */}
-          <div className="w-2/3 border-s-2 border-primary/30 px-12 flex flex-col gap-4">
+          <div className="w-full md:w-2/3 md:border-s-2 mt-8 md:mt-0 border-primary/30 px-4 md:px-12 flex flex-col gap-4">
             <div>
               <label
                 htmlFor="display_name"
@@ -203,7 +210,12 @@ const EditUserModal = ({
               <div className="py-2 px-4 rounded-md border-2 border-primary/30 flex items-center justify-between">
                 <div className="flex flex-wrap gap-2">
                   {skills.map((skill) => (
-                    <Skill key={skill} name={skill} />
+                    <Skill
+                      key={skill}
+                      name={skill}
+                      deletebtn={true}
+                      handleDelete={() => handleDelete(skill)}
+                    />
                   ))}
                 </div>
                 <button
@@ -226,7 +238,7 @@ const EditUserModal = ({
             )}
 
             {/* button section  */}
-            <div className="mt-10 w-full flex gap-8 items-center">
+            <div className="mt-10 w-full flex flex-col md:flex-row gap-4 md:gap-8 items-center">
               <button
                 type="button"
                 className="w-full  px-12 py-2 border-2 border-primary rounded-md cursor-pointer hover:bg-primary/10  transition-all duration-200 ease-in-out"

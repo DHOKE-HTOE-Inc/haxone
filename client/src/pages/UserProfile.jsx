@@ -14,7 +14,6 @@ const UserProfile = () => {
 
   const [userInfo, setUserInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  console.log(userInfo);
 
   const fetchUserProfile = async () => {
     try {
@@ -47,17 +46,19 @@ const UserProfile = () => {
       <div className="flex items-center gap-2">
         <Link
           to="/"
-          className="flex text-xl pl-10 py-4 gap-2 items-center hover:text-accent-hover transition-all duration-200 ease-in-out"
+          className="flex text-xl pl-4 md:pl-10 py-4 gap-2 items-center hover:text-accent-hover transition-all duration-200 ease-in-out"
         >
           <ChevronLeft size={30} />
         </Link>
-        <p className="text-xl font-semibold text-primary pl-2">{username}</p>
+        <p className="text-xl font-semibold text-primary pl-2">
+          Profile Setting
+        </p>
       </div>
 
       {/* dr ka main  */}
-      <div className="flex px-20 gap-8 ">
+      <div className="flex px-4 md:px-20 gap-8 lg:flex-row flex-col">
         {/* dr ka left section  */}
-        <div className="w-1/2 flex flex-col gap-4">
+        <div className="w-full lg:w-1/2 flex flex-col gap-4 ">
           <InfoCard
             userInfo={userInfo}
             setIsEditUserModalOpen={setIsEditUserModalOpen}

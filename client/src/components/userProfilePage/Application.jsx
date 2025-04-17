@@ -7,8 +7,10 @@ import NoData from "./NoData";
 const Application = () => {
   const [data, setData] = useState([]);
   return (
-    <section className="bg-white w-1/2 min-h-[90vh] h-fit pb-8 shadow-xl rounded-xl relative">
-      <div className="py-8 ml-8 font-semibold text-2xl mb-4">Application</div>
+    <section className="bg-white w-full lg:w-1/2 min-h-[90vh] h-fit pb-8 shadow-xl rounded-xl relative">
+      <div className="py-8 ml-8 font-semibold text-xl md:text-2xl mb-4">
+        Application
+      </div>
 
       <StateNavbar />
 
