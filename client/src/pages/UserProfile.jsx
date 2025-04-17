@@ -56,9 +56,9 @@ const UserProfile = () => {
       </div>
 
       {/* dr ka main  */}
-      <div className="flex px-4 md:px-20 gap-8 md:flex-row flex-col">
+      <div className="flex px-4 md:px-20 gap-8 lg:flex-row flex-col">
         {/* dr ka left section  */}
-        <div className="w-full md:w-1/2 flex flex-col gap-4 ">
+        <div className="w-full lg:w-1/2 flex flex-col gap-4 ">
           <InfoCard
             userInfo={userInfo}
             setIsEditUserModalOpen={setIsEditUserModalOpen}

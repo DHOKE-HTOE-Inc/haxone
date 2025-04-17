@@ -14,11 +14,11 @@ const SkillsModal = ({ isOpen, onClose, setSkills, skills }) => {
 
   return (
     <div
-      className="absolute top-0 left-0 w-full h-full bg-primary/30 flex items-center justify-center"
+      className="fixed top-0 left-0 w-full h-full bg-primary/30 flex items-center justify-center overflow-hidden"
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-md p-2 border-2 border-primary/80 w-1/5 flex gap-2"
+        className="bg-white rounded-md p-2 border-2 border-primary/80 md:w-1/5 flex gap-2"
         onClick={(e) => e.stopPropagation()}
       >
         <input
