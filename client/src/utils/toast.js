@@ -4,12 +4,12 @@ import { Check, AlertCircle } from "lucide-react";
 
 const toastConfig = {
   position: "top-right",
-  autoClose: 3000,
+  autoClose: 2000,
   hideProgressBar: true,
   closeOnClick: true,
   pauseOnHover: false,
   draggable: false,
-  className: "rounded-[10px] text-lg",
+  className: "rounded-md text-lg",
   boxShadow: "none",
 };
 

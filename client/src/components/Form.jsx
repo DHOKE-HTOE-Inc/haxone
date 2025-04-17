@@ -45,20 +45,20 @@ export function AuthForm({
   className = "",
 }) {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-[var(--color-secondary)] px-4">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-secondary px-4">
       <div
         className={`w-full max-w-[494px] rounded-[25px] bg-white px-5 sm:px-[70px] shadow-[0px_19px_42px_0px_rgba(174,173,173,0.10),0px_77px_77px_0px_rgba(174,173,173,0.09)] ${className}`}
       >
-        <h1 className="text-center text-[30px] font-[500] text-[var(--color-primary)] mb-8">
+        <h1 className="text-center text-2xl sm:text-3xl font-[500] text-primary mb-8">
           {header}
         </h1>
-        <form className="space-y-6 w-full" {...form}>
+        <form className="space-y-6 w-[80%] sm:w-full mx-auto" {...form}>
           {children}
           <Button type="submit">{button}</Button>
         </form>
       </div>
       {footer && (
-        <div className="mt-4 text-lg text-[var(--color-muted-gray)]">
+        <div className="mt-4 text-sm sm:text-lg text-muted-gray text-center">
           {footer}
         </div>
       )}

@@ -57,7 +57,7 @@ export default function Register() {
           Already have an account?
           <Link
             to="/login"
-            className="text-black font-semibold ml-2 cursor-pointer"
+            className="text-primary font-semibold ml-2 cursor-pointer hover:text-gray-600"
           >
             Sign in
           </Link>
