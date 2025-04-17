@@ -42,11 +42,11 @@ export default function Login() {
       form={{ onSubmit: handleSubmit }}
       className="py-[40px]"
       footer={
-        <div className="text-lg">
+        <div className="">
           Haven't registered yet?
           <Link
             to="/register"
-            className="text-black font-semibold ml-2 cursor-pointer"
+            className="text-primary font-semibold ml-2 cursor-pointer hover:text-gray-600"
           >
             Register Here
           </Link>

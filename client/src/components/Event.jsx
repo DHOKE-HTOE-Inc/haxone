@@ -10,8 +10,8 @@ const Event = ({ event }) => {
       <div>
         <img
           src={`http://localhost:8000/${event?.img}` || "/eventdefault.png"}
-          alt="eventdefault"
-          className="rounded"
+          alt="eventimage"
+          className="rounded-md min-h-56 w-full object-cover"
         />
       </div>
 

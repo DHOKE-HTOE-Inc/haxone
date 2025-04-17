@@ -11,6 +11,7 @@ const OnGoingEvent = () => {
     const fetchEvents = async () => {
       const response = await axiosInstance.get("/events/events-to-apply");
       setEvents(response.data);
+      console.log(response.data);
     };
     fetchEvents();
   }, []);

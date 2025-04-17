@@ -14,7 +14,7 @@ const EventCard = ({ id, title, image, date }) => {
 
       <div className="absolute inset-0 flex flex-col justify-between">
         {/* Title with overlay */}
-        <div className="bg-black/30 py-3 px-4 mt-4">
+        <div className="bg-gradient-to-b from-black/90 to-transparent py-3 px-4 mt-0">
           <h3 className="text-white text-xl font-medium">{title}</h3>
         </div>
 
